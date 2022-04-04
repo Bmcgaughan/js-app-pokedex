@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -8,5 +9,18 @@ html {
 
 body {
   background-color: rgb(233, 227, 227);
+  font-family: "Poppins", sans-serif;
+  font-weight: var(--font-weight-default);
+  font-size: 16px;
+  margin: 0%;
+  line-height: 1.25;
 }
 
+h1 {
+    font-size: 30px;
+    font-weight: 400;
+  }
+
+  .poke_logo{
+      float:left;
+  }
