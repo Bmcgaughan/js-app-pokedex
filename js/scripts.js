@@ -151,10 +151,6 @@ pokemonRepository.loadList().then(function () {
   });
 });
 
-//pull and display all pokemon in repo
-pokemonRepository.getAll().forEach(function (item) {
-  pokemonRepository.addListItem(item.name);
-});
 
 //trying to get pokemon by name as a test
 //console.log(pokemonRepository.getByName("Psyduck"));
