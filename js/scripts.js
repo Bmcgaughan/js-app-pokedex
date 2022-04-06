@@ -1,4 +1,4 @@
-//element selectors
+
 
 //checks to see if pokemon being added is an object
 function validatePokemon(pokemon) {
@@ -38,13 +38,14 @@ let pokemonRepository = (function () {
       return;
     }
   }
+
   function getAll() {
     return pokemonList;
   }
 
   function getByName(name) {
     //trying to filter the list of objects into an array where the name matches
-    let result = pokemonList.filter(function (pokemon) {
+    const result = pokemonList.filter(function (pokemon) {
       return pokemon.name === name;
     });
     //returning the object if the array has values
@@ -56,8 +57,8 @@ let pokemonRepository = (function () {
     //select ul of pokemon
     const pokemonPageList = document.querySelector(".pokemon-list");
 
-    let listItem = document.createElement("li");
-    let listButton = document.createElement("button");
+    const listItem = document.createElement("li");
+    const listButton = document.createElement("button");
 
     listButton.innerText = pokemonName;
     listButton.classList.add("button-pokemon");
@@ -105,7 +106,6 @@ pokemonRepository.add({
 pokemonRepository.getAll().forEach(function (item) {
   pokemonRepository.addListItem(item.name);
 });
-
 
 
 //trying to get pokemon by name as a test
