@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
 }
@@ -17,10 +16,49 @@ body {
 }
 
 h1 {
-    font-size: 30px;
-    font-weight: 400;
-  }
+  font-size: 30px;
+  font-weight: 400;
+}
 
-  .poke_logo{
-      float:left;
-  }
+.poke_logo {
+  float: left;
+}
+
+li {
+  list-style: none;
+}
+.button-pokemon {
+  margin: 5px;
+  outline: none;
+  height: 40px;
+  text-align: center;
+  width: 130px;
+  border-radius: 40px;
+  background: #fff;
+  cursor: pointer;
+  border: 2px solid rgb(27, 29, 134);
+  color: rgb(27, 29, 134);
+  letter-spacing: 1px;
+  text-shadow: 0;
+  transition: all 0.25s ease;
+}
+
+/*
+.button-pokemon {
+  outline: none;
+  padding: 10px;
+  border-radius: 40px;
+  margin: 5px;
+  text-shadow: 0;
+  color: rgb(255, 255, 255);
+  background-color: blue;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  transition: all 0.25s ease;
+}
+*/
+
+.button-pokemon:hover {
+  color: white;
+  background: rgb(27, 29, 134);
+}
