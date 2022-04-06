@@ -20,6 +20,13 @@ function validatePokemonKeys(pokemon) {
   return containsAllKeys;
 }
 
+  //attach click event to passed button
+function addClickEvent(button, pokeName) {
+  button.addEventListener("click", (event) => {
+    pokemonRepository.showDetails(pokeName);
+  });
+}
+
 //IIFE for getting and setting pokemonList 1.5 part 2
 let pokemonRepository = (function () {
   let pokemonList = [];
@@ -44,10 +51,11 @@ let pokemonRepository = (function () {
     return result.length > 0 ? result : "This Pokemon does not exist";
   }
 
+  //creates button for pokemon that is provided
   function addListItem(pokemonName) {
     //select ul of pokemon
     const pokemonPageList = document.querySelector(".pokemon-list");
-    
+
     let listItem = document.createElement("li");
     let listButton = document.createElement("button");
 
@@ -57,6 +65,13 @@ let pokemonRepository = (function () {
     listItem.appendChild(listButton);
     //add li elements into ul parent
     pokemonPageList.appendChild(listItem);
+
+    addClickEvent(listButton, pokemonName)
+  }
+
+  //display details for provided pokemon
+  function showDetails(pokemon) {
+    console.log(pokemon);
   }
 
   return {
@@ -64,6 +79,7 @@ let pokemonRepository = (function () {
     getAll: getAll,
     getByName: getByName,
     addListItem: addListItem,
+    showDetails: showDetails,
   };
 })();
 
@@ -90,6 +106,8 @@ pokemonRepository.getAll().forEach(function (item) {
   pokemonRepository.addListItem(item.name);
 });
 
+
+
 //trying to get pokemon by name as a test
-console.log(pokemonRepository.getByName("Psyduck"));
-console.log(pokemonRepository.getByName("Pikachu"));
+//console.log(pokemonRepository.getByName("Psyduck"));
+//console.log(pokemonRepository.getByName("Pikachu"));
