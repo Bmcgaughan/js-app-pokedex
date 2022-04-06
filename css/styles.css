@@ -43,6 +43,10 @@ li {
   transition: all 0.25s ease;
 }
 
+.hidden{
+    display: none;
+}
+
 /*
 .button-pokemon {
   outline: none;
