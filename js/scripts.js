@@ -133,6 +133,24 @@ let pokemonRepository = (function () {
       });
   }
 
+  //adding event handler for clicking outside modal
+  const modalContainer = document.querySelector('#modal-container');
+  modalContainer.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target === modalContainer) {
+      hideModal();
+    }
+  });
+
+  //close modal on escape key
+  window.addEventListener('keydown', (e) => {
+    const modalContainer = document.querySelector('#modal-container');
+
+    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+      hideModal();
+    }
+  });
+
   return {
     add: add,
     getAll: getAll,
@@ -151,6 +169,62 @@ pokemonRepository.loadList().then(function () {
   });
 });
 
+function showModal(title, text) {
+  let modalContainer = document.querySelector('#modal-container');
+
+  //clear current modal and re-create
+  modalContainer.innerHTML = '';
+  let modal = document.createElement('div');
+  modal.classList.add('modal');
+
+  let closeButtonElement = document.createElement('button');
+  closeButtonElement.classList.add('modal-close');
+  closeButtonElement.innerText = 'Close';
+  closeButtonElement.addEventListener('click', hideModal);
+
+  //set modal title
+  let titleElement = document.createElement('h1');
+  titleElement.innerText = title;
+  //set modal text
+  let contentElement = document.createElement('p');
+  contentElement.innerText = text;
+
+  //add all modal elements into HTML
+  modal.appendChild(closeButtonElement);
+  modal.appendChild(titleElement);
+  modal.appendChild(contentElement);
+  modalContainer.appendChild(modal);
+
+  modalContainer.classList.add('is-visible');
+}
+
+function hideModal() {
+  const modalContainer = document.querySelector('#modal-container');
+  modalContainer.classList.remove('is-visible');
+}
+
+function showDialog(title, text) {
+  showModal(title, text);
+
+  let modalContainer = document.querySelector('#modal-container');
+  let modal = modalContainer.querySelector('.modal');
+
+  let confirmButton = document.createElement('button');
+  confirmButton.classList.add('modal-confirm');
+  confirmButton.innerText = 'Confirm';
+
+  let cancelButton = document.createElement('button');
+  cancelButton.classList.add('modal-cancel');
+  cancelButton.innerText = 'Cancel';
+
+  modal.appendChild(confirmButton);
+  modal.appendChild(cancelButton);
+  confirmButton.focus();
+}
+
+document.querySelector('#show-modal').addEventListener('click', () => {
+  showModal('My Title', 'Demo Text');
+});
 
 //trying to get pokemon by name as a test
 //console.log(pokemonRepository.getByName("Psyduck"));

@@ -56,7 +56,7 @@ li {
   display: none;
 }
 
-#modal-container.is-visble {
+#modal-container.is-visible {
   position: fixed;
   padding: 20px;
   box-sizing: border-box;
@@ -90,6 +90,7 @@ li {
   background: none;
   color: #777;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .modal h1 {
