@@ -198,33 +198,18 @@ function showModal(title, text) {
   modalContainer.classList.add('is-visible');
 }
 
+
 function hideModal() {
   const modalContainer = document.querySelector('#modal-container');
   modalContainer.classList.remove('is-visible');
+
 }
 
-function showDialog(title, text) {
-  showModal(title, text);
-
-  let modalContainer = document.querySelector('#modal-container');
-  let modal = modalContainer.querySelector('.modal');
-
-  let confirmButton = document.createElement('button');
-  confirmButton.classList.add('modal-confirm');
-  confirmButton.innerText = 'Confirm';
-
-  let cancelButton = document.createElement('button');
-  cancelButton.classList.add('modal-cancel');
-  cancelButton.innerText = 'Cancel';
-
-  modal.appendChild(confirmButton);
-  modal.appendChild(cancelButton);
-  confirmButton.focus();
-}
 
 document.querySelector('#show-modal').addEventListener('click', () => {
   showModal('My Title', 'Demo Text');
 });
+
 
 //trying to get pokemon by name as a test
 //console.log(pokemonRepository.getByName("Psyduck"));
