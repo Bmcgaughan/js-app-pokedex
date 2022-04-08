@@ -124,6 +124,7 @@ let pokemonRepository = (function () {
       .then(function (details) {
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
+        item.weight = details.weight;
         item.types = details.types;
         hideLoadingMessage();
       })
@@ -182,24 +183,34 @@ function addTypes(types) {
     typeNameElement.classList.add('type-name');
     typeNameElement.innerText = itm.type.name;
 
+    //creating a wrapper to scale svg icons
     const typeIconWrapper = document.createElement('div');
-    typeIconWrapper.classList.add('icon-wrapper')
+    typeIconWrapper.classList.add('icon-wrapper');
 
     const typeIconElement = document.createElement('img');
     typeIconElement.src = `img/types/${itm.type.name}.svg`;
     typeIconElement.classList.add('type-svg');
 
-    typeIconWrapper.appendChild(typeIconElement)
+    typeIconWrapper.appendChild(typeIconElement);
 
     indTypeContainer.appendChild(typeIconWrapper);
     indTypeContainer.appendChild(typeNameElement);
     contentTypes.appendChild(indTypeContainer);
-
-    // contentTypes.appendChild(typeIconElement);
-    // contentTypes.appendChild(typeNameElement)
-
   });
+  //returns type elements to be added
   return contentTypes;
+}
+
+//element generator
+function generateElement(type, cls, text) {
+  let newElement = document.createElement(type);
+  if (cls) {
+    newElement.classList.add(cls);
+  }
+  if (text) {
+    newElement.innerHTML = text;
+  }
+  return newElement;
 }
 
 function showModal(pokemon) {
@@ -207,40 +218,32 @@ function showModal(pokemon) {
   //clear current modal and re-create
   modalContainer.innerHTML = '';
 
-  let modal = document.createElement('div');
-  modal.classList.add('modal');
+  let modal = generateElement('div', 'modal', null);
 
-  //create header element and add title and close
-  let modalHeader = document.createElement('div');
-  modalHeader.classList.add('modal-header');
+  let modalHeader = generateElement('div', 'modal-header', null);
+
+  let titleElement = generateElement('h1', null, pokemon.name);
 
   //set modal title
-  let titleElement = document.createElement('h1');
-  titleElement.innerText = pokemon.name;
   modalHeader.appendChild(titleElement);
 
-  let closeButtonWrapper = document.createElement('div');
-  closeButtonWrapper.classList.add('modal-close');
-  let closeButtonElement = document.createElement('button');
-  closeButtonElement.classList.add('modal-close__button');
-  closeButtonElement.innerText = 'Close';
+  let closeButtonWrapper = generateElement('div', 'modal-close', null);
+  let closeButtonElement = generateElement(
+    'button',
+    'modal-close__button',
+    'Close'
+  );
+
   closeButtonElement.addEventListener('click', hideModal);
   closeButtonWrapper.appendChild(closeButtonElement);
 
   //modal body
-  let modalBody = document.createElement('div');
-  modalBody.classList.add('modal-body');
+  let modalBody = generateElement('div', 'modal-body', null);
 
-  //set pokemon image
-  let contentImage = document.createElement('img');
-  contentImage.classList.add('modal-pokemon-image');
+  let contentImage = generateElement('img', 'modal-pokemon-image', null);
   contentImage.src = pokemon.imageUrl;
 
-  //set modal text
-  let contentDescription = document.createElement('p');
-  contentDescription.innerText = `Height: ${pokemon.height}`;
-
-  //gathering type information
+  //gathering type information and storing
   let pokemonTypeElements;
   if (pokemon.types) {
     pokemonTypeElements = addTypes(pokemon.types);
@@ -248,7 +251,14 @@ function showModal(pokemon) {
 
   //add to modal-body
   modalBody.appendChild(contentImage);
-  modalBody.appendChild(contentDescription);
+
+  //iterating object to grab attributes for display
+  for (const key in pokemon) {
+    if (key === 'height' || key === 'weight') {
+      let attributeAdd = generateElement('p', null, `${key}: ${pokemon[key]}`);
+      modalBody.appendChild(attributeAdd);
+    }
+  }
 
   //add all modal elements into HTML
   modal.appendChild(closeButtonWrapper);
