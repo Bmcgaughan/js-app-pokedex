@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -20,19 +22,47 @@ h1 {
   font-weight: 400;
 }
 
-.poke_logo {
-  float: left;
+.page-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
 }
 
+.poke_logo {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+}
+
+/* pokemon body containers*/
+.pokemon-display {
+  display: flex;
+  justify-content: center;
+}
+
+.pokemon-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* pokemob button styles */
 li {
   list-style: none;
+  padding: 5px;
 }
+
 .button-pokemon {
-  margin: 5px;
   outline: none;
-  height: 40px;
+  height: 60px;
+  width: 250px;
   text-align: center;
-  width: 130px;
+  text-transform: capitalize;
   border-radius: 40px;
   background: #fff;
   cursor: pointer;
@@ -43,13 +73,14 @@ li {
   transition: all 0.25s ease;
 }
 
-.hidden {
-  display: none;
-}
-
 .button-pokemon:hover {
   color: white;
   background: rgb(27, 29, 134);
+}
+
+/*modal styles*/
+.hidden {
+  display: none;
 }
 
 #modal-container {
@@ -79,12 +110,27 @@ li {
   background: #fff;
   padding: 15px;
   width: 100%;
-  max-width: 700px;
+  max-width: 500px;
   text-align: left;
 }
 
+.modal h1 {
+  text-transform: capitalize;
+  margin: 0;
+  justify-self: center;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: center;
+}
+
 .modal-close {
-  float: right;
+  display: flex;
+  justify-content: right;
+}
+
+.modal-close__button {
   -webkit-appearance: none;
   border: 0;
   background: none;
@@ -95,8 +141,69 @@ li {
 
 .modal h1 {
   margin-top: 0;
+  display: flex;
+  align-self: center;
 }
 
 .modal p {
   margin-bottom: 0;
 }
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body img,
+p {
+  align-self: center;
+}
+
+/* .modal-type-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+.type-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.modal-type-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.type-container {
+  width: 100px;
+  gap: 5px;
+}
+
+.icon-wrapper {
+    height:40px;
+    width: 40px;
+    border-radius: 100%;
+    background: black;
+
+}
+
+.type-svg {
+    height: 60%;
+    width: 60%;
+    margin: 20%;
+
+}
+
+/*
+.type-svg {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background: black;
+  float: left;
+}
+*/
