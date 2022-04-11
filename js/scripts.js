@@ -190,6 +190,13 @@ $('#pokeModal').on('show.bs.modal', (event) => {
   });
 });
 
+function resetSearch() {
+  $('.list-group-item').each((index, element) => {
+    $(element).show();
+  });
+  $('input').val('')
+}
+
 const searchBar = document.querySelector('#search-button');
 
 $('form').on('submit', function (e) {
@@ -199,13 +206,14 @@ $('form').on('submit', function (e) {
 
   if (searchVal === '') {
     alert('Must Enter a Value to Search');
+    resetSearch();
     return;
   }
 
   //search and hide non-hits
   $('.list-group-item').each((index, element) => {
     $(element).show();
-    if ($(element).text().toLowerCase().indexOf(searchVal) == 0) {
+    if ($(element).text().toLowerCase().indexOf(searchVal) > -1) {
       console.log($(element).text());
     } else {
       $(element).hide();
@@ -214,7 +222,5 @@ $('form').on('submit', function (e) {
 });
 
 $('.clear-search').click(() => {
-  $('.list-group-item').each((index, element) => {
-    $(element).show();
-  });
+  resetSearch();
 });
