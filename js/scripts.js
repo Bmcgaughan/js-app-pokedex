@@ -115,9 +115,10 @@ pokemonRepository.loadList().then(function () {
 
 //iterates types and makes elements for name and icon
 function addTypes(types) {
-  let contentTypes = document.createElement('div');
-  contentTypes.classList.add('modal-type-wrapper');
-  contentTypes.classList.add('text-center')
+
+  let contentTypes = $('<div></div>').addClass(
+    'modal-type-wrapper text-center'
+  );
 
   types.forEach((itm) => {
     const indTypeContainer = document.createElement('div');
@@ -129,7 +130,7 @@ function addTypes(types) {
 
     //creating a wrapper to scale svg icons
     const typeIconWrapper = document.createElement('div');
-    typeIconWrapper.classList.add('icon-wrapper');
+    typeIconWrapper.classList.add('icon-wrapper', itm.type.name);
 
     const typeIconElement = document.createElement('img');
     typeIconElement.src = `img/types/${itm.type.name}.svg`;
@@ -139,28 +140,12 @@ function addTypes(types) {
 
     indTypeContainer.appendChild(typeIconWrapper);
     indTypeContainer.appendChild(typeNameElement);
-    contentTypes.appendChild(indTypeContainer);
+    contentTypes.append(indTypeContainer);
   });
   //returns type elements to be added
   return contentTypes;
 }
 
-//element generator
-function generateElement(type, cls, text) {
-  let newElement = document.createElement(type);
-  if (cls) {
-    newElement.classList.add(cls);
-  }
-  if (text) {
-    newElement.innerHTML = text;
-  }
-  return newElement;
-}
-
-function makeGridRow() {
-  let newRow = $('<div></div>').addClass('text-center');
-  return newRow;
-}
 
 //adding click event onto modal to grab pokemon content
 const modalContent = document.querySelector('#pokeModal');
