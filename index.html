@@ -32,14 +32,10 @@
     <title>Pokedex App</title>
   </head>
   <body>
+    <!--navigation bar-->
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="#">
-        <img
-          src="img/pokeball.png"
-          width="50"
-          height="50"
-          alt=""
-        />
+        <img src="img/pokeball.png" width="40" height="40" alt="" />
       </a>
       <a class="navbar-brand" href="#">Navbar</a>
       <button
@@ -53,7 +49,6 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -75,15 +70,17 @@
         </form>
       </div>
     </nav>
-    <div class="page-header">
-      <img class="poke_logo" src="img/pokeball.png" alt="" />
-      <h1>Pokedex</h1>
-      <div class="page-loading hidden">Page is Loading...</div>
-    </div>
-    <div id="modal-container"></div>
-    <!--container for pokemon list-->
-    <div class="pokemon-display">
-      <ul class="pokemon-list"></ul>
+    <!--body of page-->
+    <div class="container page-container">
+      <div id="modal-container"></div>
+      <!--container for pokemon list-->
+      <div class="list-group" id="pokemon-list">
+
+      </div>
+
+      <div class="pokemon-display">
+        <ul class="pokemon-list"></ul>
+      </div>
     </div>
   </body>
   <script
