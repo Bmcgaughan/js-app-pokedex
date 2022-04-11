@@ -22,6 +22,7 @@ h1 {
   font-weight: 400;
 }
 
+
 .page-header {
   display: flex;
   flex-direction: row;
@@ -42,6 +43,7 @@ h1 {
 .pokemon-display {
   display: flex;
   justify-content: center;
+  animation: createGrow 1s;
 }
 
 .pokemon-list {
@@ -112,6 +114,7 @@ li {
   width: 100%;
   max-width: 500px;
   text-align: left;
+
 }
 
 .modal h1 {
@@ -157,17 +160,14 @@ li {
 .modal-body img,
 p {
   align-self: center;
+  text-transform: capitalize;
 }
-
-/* .modal-type-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
 
 .type-container {
   display: flex;
   align-items: flex-start;
+  width: 100px;
+  gap: 5px;
 }
 
 .modal-type-wrapper {
@@ -178,32 +178,27 @@ p {
   margin-top: 10px;
 }
 
-.type-container {
-  width: 100px;
-  gap: 5px;
-}
-
 .icon-wrapper {
-    height:40px;
-    width: 40px;
-    border-radius: 100%;
-    background: black;
-
-}
-
-.type-svg {
-    height: 60%;
-    width: 60%;
-    margin: 20%;
-
-}
-
-/*
-.type-svg {
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   border-radius: 100%;
   background: black;
-  float: left;
 }
-*/
+
+.type-svg {
+  height: 60%;
+  width: 60%;
+  margin: 20%;
+}
+
+/*Animations*/
+
+@keyframes createGrow {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}

@@ -219,9 +219,7 @@ function showModal(pokemon) {
   modalContainer.innerHTML = '';
 
   let modal = generateElement('div', 'modal', null);
-
   let modalHeader = generateElement('div', 'modal-header', null);
-
   let titleElement = generateElement('h1', null, pokemon.name);
 
   //set modal title
@@ -252,7 +250,7 @@ function showModal(pokemon) {
   //add to modal-body
   modalBody.appendChild(contentImage);
 
-  //iterating object to grab attributes for display
+  //iterating object to grab attributes for display - if there is a need to add more
   for (const key in pokemon) {
     if (key === 'height' || key === 'weight') {
       let attributeAdd = generateElement('p', null, `${key}: ${pokemon[key]}`);
@@ -264,11 +262,11 @@ function showModal(pokemon) {
   modal.appendChild(closeButtonWrapper);
   modal.appendChild(modalHeader);
   modal.appendChild(modalBody);
+
   if (pokemonTypeElements) {
     modal.appendChild(pokemonTypeElements);
   }
   modalContainer.appendChild(modal);
-
   modalContainer.classList.add('is-visible');
 }
 
