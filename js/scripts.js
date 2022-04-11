@@ -117,6 +117,7 @@ pokemonRepository.loadList().then(function () {
 function addTypes(types) {
   let contentTypes = document.createElement('div');
   contentTypes.classList.add('modal-type-wrapper');
+  contentTypes.classList.add('text-center')
 
   types.forEach((itm) => {
     const indTypeContainer = document.createElement('div');
@@ -156,83 +157,52 @@ function generateElement(type, cls, text) {
   return newElement;
 }
 
-function showModal(pokemon) {
-  let modalContainer = document.querySelector('#modal-container');
-  //clear current modal and re-create
-  modalContainer.innerHTML = '';
-
-  let modal = generateElement('div', 'modal', null);
-  let modalHeader = generateElement('div', 'modal-header', null);
-  let titleElement = generateElement('h1', null, pokemon.name);
-
-  //set modal title
-  modalHeader.appendChild(titleElement);
-
-  let closeButtonWrapper = generateElement('div', 'modal-close', null);
-  let closeButtonElement = generateElement(
-    'button',
-    'modal-close__button',
-    'Close'
-  );
-
-  closeButtonElement.addEventListener('click', hideModal);
-  closeButtonWrapper.appendChild(closeButtonElement);
-
-  //modal body
-  let modalBody = generateElement('div', 'modal-body', null);
-
-  let contentImage = generateElement('img', 'modal-pokemon-image', null);
-  contentImage.src = pokemon.imageUrl;
-
-  //gathering type information and storing
-  let pokemonTypeElements;
-  if (pokemon.types) {
-    pokemonTypeElements = addTypes(pokemon.types);
-  }
-
-  //add to modal-body
-  modalBody.appendChild(contentImage);
-
-  //iterating object to grab attributes for display - if there is a need to add more
-  for (const key in pokemon) {
-    if (key === 'height' || key === 'weight') {
-      let attributeAdd = generateElement('p', null, `${key}: ${pokemon[key]}`);
-      modalBody.appendChild(attributeAdd);
-    }
-  }
-
-  //add all modal elements into HTML
-  modal.appendChild(closeButtonWrapper);
-  modal.appendChild(modalHeader);
-  modal.appendChild(modalBody);
-
-  if (pokemonTypeElements) {
-    modal.appendChild(pokemonTypeElements);
-  }
-  modalContainer.appendChild(modal);
-  modalContainer.classList.add('is-visible');
+function makeGridRow() {
+  let newRow = $('<div></div>').addClass('text-center');
+  return newRow;
 }
 
-// function hideModal() {
-//   const modalContainer = document.querySelector('#modal-container');
-//   modalContainer.classList.remove('is-visible');
-// }
-
-//adding click event onto modai to grab pokemon content
-
+//adding click event onto modal to grab pokemon content
 const modalContent = document.querySelector('#pokeModal');
 
 $('#pokeModal').on('show.bs.modal', (event) => {
   let callingButton = event.relatedTarget;
+  $('.modal-body').html('');
   //finding and pulling details for targeted pokemon
   let pokemon = pokemonRepository.getByName(
     callingButton.innerText.toLowerCase()
   );
 
-  pokemonRepository.loadDetails(pokemon).then(function () {
-    $('.modal-title').text(pokemon.name)
+  let pokemonTypes;
 
-    let modalBody = modalContent.querySelector('.modal-body');
-    modalBody.textContent = `Height: ${pokemon.height}\nWeight: ${pokemon.weight}`;
+  pokemonRepository.loadDetails(pokemon).then(function () {
+    //add Pokemon Title, image and major Stats
+    $('.modal-title').text(pokemon.name);
+
+    //adding pokemon image
+
+    $('.modal-body')
+      .append(
+        $('<div></div>')
+          .addClass('text-center')
+          .append(
+            $('<img></img>')
+              .attr('src', pokemon.imageUrl)
+              .addClass('modal-pokemon-image float-center')
+          )
+      )
+      .append(
+        $('<div></div>')
+          .addClass('text-center pokemon-stats')
+          .append($('<p></p>').text(`Height: ${pokemon.height}`))
+          .append($('<p></p>').text(`Weight: ${pokemon.weight}`))
+      );
+
+    //adding pokemon types and images
+    pokemonTypes = addTypes(pokemon.types);
+
+    $('.modal-body').append(
+      $('<div></div>').addClass('pokemon-type-flex').append(pokemonTypes)
+    );
   });
 });
