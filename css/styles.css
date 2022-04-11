@@ -73,7 +73,7 @@ li {
   display: none;
 }
 
-#modal-container {
+/* #modal-container {
   display: none;
 }
 
@@ -164,7 +164,7 @@ p {
   align-items: center;
   gap: 5px;
   margin-top: 10px;
-}
+} */
 
 .icon-wrapper {
   height: 40px;

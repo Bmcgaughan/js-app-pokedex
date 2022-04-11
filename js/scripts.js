@@ -67,28 +67,11 @@ let pokemonRepository = (function () {
       const pokemonPageList = $('#pokemon-list');
 
       $('#pokemon-list').append(
-        $('<button></button>').append(pokemon.name).addClass('list-group-item list-group-item-action pokemon-list-item')
+        $('<button></button>').append(document.createTextNode(pokemon.name)).addClass('list-group-item list-group-item-action pokemon-list-item').attr('data-toggle', 'modal')
+        .attr('data-target', '#pokeModal')
       )
    
     }
-
-  // //creates button for pokemon object that is provided
-  // function addListItem(pokemonObj) {
-  //   //select ul of pokemon
-  //   const pokemonPageList = document.querySelector('.pokemon-list');
-
-  //   const listItem = document.createElement('li');
-  //   const listButton = document.createElement('button');
-
-  //   listButton.innerText = pokemonObj.name;
-  //   listButton.classList.add('button-pokemon');
-  //   //add button to li element
-  //   listItem.appendChild(listButton);
-  //   //add li elements into ul parent
-  //   pokemonPageList.appendChild(listItem);
-
-  //   addClickEvent(listButton, pokemonObj);
-  // }
 
   function loadList() {
     return fetch(apiUrl)
@@ -127,22 +110,22 @@ let pokemonRepository = (function () {
   }
 
   //adding event handler for clicking outside modal
-  const modalContainer = document.querySelector('#modal-container');
-  modalContainer.addEventListener('click', (e) => {
-    const target = e.target;
-    if (target === modalContainer) {
-      hideModal();
-    }
-  });
+  // const modalContainer = document.querySelector('#modal-container');
+  // modalContainer.addEventListener('click', (e) => {
+  //   const target = e.target;
+  //   if (target === modalContainer) {
+  //     hideModal();
+  //   }
+  // });
 
   //close modal on escape key
-  window.addEventListener('keydown', (e) => {
-    const modalContainer = document.querySelector('#modal-container');
+  // window.addEventListener('keydown', (e) => {
+  //   const modalContainer = document.querySelector('#modal-container');
 
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-      hideModal();
-    }
-  });
+  //   if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+  //     hideModal();
+  //   }
+  // });
 
   return {
     add: add,
