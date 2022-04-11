@@ -1,4 +1,3 @@
-
 //checks to see if pokemon being added is an object
 function validatePokemon(pokemon) {
   return typeof pokemon === 'object' ? true : false;
@@ -17,13 +16,6 @@ function validatePokemonKeys(pokemon) {
   });
 
   return containsAllKeys;
-}
-
-//attach click event to the button
-function addClickEvent(button, pokeObject) {
-  button.addEventListener('click', (event) => {
-    pokemonRepository.showDetails(pokeObject);
-  });
 }
 
 //IIFE for getting and setting pokemonList 1.5 part 2
@@ -50,28 +42,31 @@ let pokemonRepository = (function () {
   //gets pokemon details and returns the object
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      showModal(pokemon);
+      return pokemon;
     });
   }
 
   function getByName(name) {
-    //trying to filter the list of objects into an array where the name matches
+    //find specific pokemon should only return 1 item
     const result = pokemonList.filter(function (pokemon) {
       return pokemon.name === name;
     });
-    //returning the object if the array has values
-    return result.length > 0 ? result : 'This Pokemon does not exist';
+    return result[0];
   }
 
-    function addListItem(pokemon){
-      const pokemonPageList = $('#pokemon-list');
+  function addListItem(pokemon) {
+    const pokemonPageList = $('#pokemon-list');
 
-      $('#pokemon-list').append(
-        $('<button></button>').append(document.createTextNode(pokemon.name)).addClass('list-group-item list-group-item-action pokemon-list-item').attr('data-toggle', 'modal')
+    $('#pokemon-list').append(
+      $('<button></button>')
+        .append(document.createTextNode(pokemon.name))
+        .addClass(
+          'list-group-item list-group-item-action pokemon-list-item pokemon-button'
+        )
+        .attr('data-toggle', 'modal')
         .attr('data-target', '#pokeModal')
-      )
-   
-    }
+    );
+  }
 
   function loadList() {
     return fetch(apiUrl)
@@ -108,24 +103,6 @@ let pokemonRepository = (function () {
         console.error(e);
       });
   }
-
-  //adding event handler for clicking outside modal
-  // const modalContainer = document.querySelector('#modal-container');
-  // modalContainer.addEventListener('click', (e) => {
-  //   const target = e.target;
-  //   if (target === modalContainer) {
-  //     hideModal();
-  //   }
-  // });
-
-  //close modal on escape key
-  // window.addEventListener('keydown', (e) => {
-  //   const modalContainer = document.querySelector('#modal-container');
-
-  //   if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-  //     hideModal();
-  //   }
-  // });
 
   return {
     add: add,
@@ -245,11 +222,21 @@ function showModal(pokemon) {
   modalContainer.classList.add('is-visible');
 }
 
-function hideModal() {
-  const modalContainer = document.querySelector('#modal-container');
-  modalContainer.classList.remove('is-visible');
-}
+// function hideModal() {
+//   const modalContainer = document.querySelector('#modal-container');
+//   modalContainer.classList.remove('is-visible');
+// }
 
-//trying to get pokemon by name as a test
-//console.log(pokemonRepository.getByName("Psyduck"));
-//console.log(pokemonRepository.getByName("Pikachu"));
+//adding click event onto modai to grab pokemon content
+
+$('#pokeModal').on('show.bs.modal', (event) => {
+  let callingButton = event.relatedTarget;
+  let pokemonTarget = pokemonRepository.getByName(
+    callingButton.innerText.toLowerCase()
+  );
+
+  pokemonRepository.loadDetails(pokemonTarget)
+  
+  console.log(pokemonTarget)
+
+});
