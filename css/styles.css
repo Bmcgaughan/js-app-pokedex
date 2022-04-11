@@ -18,7 +18,7 @@ body {
 }
 
 .page-container {
-  margin-top: 70px;
+  margin-top: 20px;
 }
 
 .pokemon-list-item {
@@ -29,6 +29,10 @@ body {
 li {
   list-style: none;
   padding: 5px;
+}
+
+.btn {
+  margin: 2px;
 }
 
 .button-pokemon {

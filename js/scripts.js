@@ -115,7 +115,6 @@ pokemonRepository.loadList().then(function () {
 
 //iterates types and makes elements for name and icon
 function addTypes(types) {
-
   let contentTypes = $('<div></div>').addClass(
     'modal-type-wrapper text-center'
   );
@@ -145,7 +144,6 @@ function addTypes(types) {
   //returns type elements to be added
   return contentTypes;
 }
-
 
 //adding click event onto modal to grab pokemon content
 const modalContent = document.querySelector('#pokeModal');
@@ -189,5 +187,34 @@ $('#pokeModal').on('show.bs.modal', (event) => {
     $('.modal-body').append(
       $('<div></div>').addClass('pokemon-type-flex').append(pokemonTypes)
     );
+  });
+});
+
+const searchBar = document.querySelector('#search-button');
+
+$('form').on('submit', function (e) {
+  e.preventDefault();
+  //get search value
+  const searchVal = $('input').val().toLowerCase();
+
+  if (searchVal === '') {
+    alert('Must Enter a Value to Search');
+    return;
+  }
+
+  //search and hide non-hits
+  $('.list-group-item').each((index, element) => {
+    $(element).show();
+    if ($(element).text().toLowerCase().indexOf(searchVal) == 0) {
+      console.log($(element).text());
+    } else {
+      $(element).hide();
+    }
+  });
+});
+
+$('.clear-search').click(() => {
+  $('.list-group-item').each((index, element) => {
+    $(element).show();
   });
 });
