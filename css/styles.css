@@ -43,7 +43,6 @@ h1 {
 .pokemon-display {
   display: flex;
   justify-content: center;
-  animation: createGrow 1s;
 }
 
 .pokemon-list {
@@ -52,6 +51,8 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+
 
 /* pokemob button styles */
 li {
@@ -189,16 +190,4 @@ p {
   height: 60%;
   width: 60%;
   margin: 20%;
-}
-
-/*Animations*/
-
-@keyframes createGrow {
-  from {
-    transform: scale(0);
-  }
-
-  to {
-    transform: scale(1);
-  }
 }
