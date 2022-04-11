@@ -38,20 +38,12 @@ let pokemonRepository = (function () {
   function getAll() {
     return pokemonList;
   }
-
-  //gets pokemon details and returns the object
-  function showDetails(pokemon) {
-    loadDetails(pokemon).then(function () {
-      return pokemon;
-    });
-  }
-
   function getByName(name) {
     //find specific pokemon should only return 1 item
     const result = pokemonList.filter(function (pokemon) {
       return pokemon.name === name;
     });
-    return result[0];
+    return result.length > 0 ? result[0] : 'This pokemon does not exist..';
   }
 
   function addListItem(pokemon) {
@@ -109,7 +101,6 @@ let pokemonRepository = (function () {
     getAll: getAll,
     getByName: getByName,
     addListItem: addListItem,
-    showDetails: showDetails,
     loadList: loadList,
     loadDetails: loadDetails,
   };
@@ -229,14 +220,19 @@ function showModal(pokemon) {
 
 //adding click event onto modai to grab pokemon content
 
+const modalContent = document.querySelector('#pokeModal');
+
 $('#pokeModal').on('show.bs.modal', (event) => {
   let callingButton = event.relatedTarget;
-  let pokemonTarget = pokemonRepository.getByName(
+  //finding and pulling details for targeted pokemon
+  let pokemon = pokemonRepository.getByName(
     callingButton.innerText.toLowerCase()
   );
 
-  pokemonRepository.loadDetails(pokemonTarget)
-  
-  console.log(pokemonTarget)
+  pokemonRepository.loadDetails(pokemon).then(function () {
+    $('.modal-title').text(pokemon.name)
 
+    let modalBody = modalContent.querySelector('.modal-body');
+    modalBody.textContent = `Height: ${pokemon.height}\nWeight: ${pokemon.weight}`;
+  });
 });
