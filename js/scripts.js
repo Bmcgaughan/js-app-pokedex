@@ -223,7 +223,6 @@ $('form').on('submit', function (e) {
   $('.group-list-item').each((index, element) => {
     $(element).show();
     if ($(element).text().toLowerCase().indexOf(searchVal) > -1) {
-      console.log($(element).text());
     } else {
       $(element).hide();
     }
