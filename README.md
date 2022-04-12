@@ -1,7 +1,5 @@
 # js-app-pokedex
 
-# Project Title
-
 Simple Pokedex application
 
 ## Description
