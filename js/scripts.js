@@ -47,16 +47,15 @@ let pokemonRepository = (function () {
   }
 
   function addListItem(pokemon) {
-    const pokemonPageList = $('#pokemon-list');
-
-    $('#pokemon-list').append(
-      $('<button></button>')
-        .append(document.createTextNode(pokemon.name))
-        .addClass(
-          'list-group-item list-group-item-action pokemon-list-item pokemon-button'
+    $('.list-group').append(
+      $('<li></li>')
+        .addClass('group-list-item col-lg-4 col-sm-12 col-md-6')
+        .append(
+          $('<button></button>')
+            .append(document.createTextNode(pokemon.name)).addClass('btn btn-light')
+            .attr('data-toggle', 'modal')
+            .attr('data-target', '#pokeModal')
         )
-        .attr('data-toggle', 'modal')
-        .attr('data-target', '#pokeModal')
     );
   }
 
@@ -90,6 +89,7 @@ let pokemonRepository = (function () {
         item.height = details.height;
         item.weight = details.weight;
         item.types = details.types;
+        item.sprites = details.sprites
       })
       .catch(function (e) {
         console.error(e);
@@ -162,7 +162,15 @@ $('#pokeModal').on('show.bs.modal', (event) => {
     //add Pokemon Title, image and major Stats
     $('.modal-title').text(pokemon.name);
 
-    //adding pokemon image
+    //setting pokemon image url trying official and home then defaulting
+    let spriteURL;
+    if (pokemon.sprites.other['official-artwork'].front_default){
+      spriteURL = pokemon.sprites.other['official-artwork'].front_default
+    } else if (pokemon.sprites.other.home.front_default) {
+      spriteURL = pokemon.sprites.other.home.front_default
+    } else {
+      spriteURL = pokemon.imageUrl
+    }
 
     $('.modal-body')
       .append(
@@ -170,7 +178,7 @@ $('#pokeModal').on('show.bs.modal', (event) => {
           .addClass('text-center')
           .append(
             $('<img></img>')
-              .attr('src', pokemon.imageUrl)
+              .attr('src', spriteURL)
               .addClass('modal-pokemon-image float-center')
           )
       )
@@ -190,15 +198,17 @@ $('#pokeModal').on('show.bs.modal', (event) => {
   });
 });
 
+//clears search and re-displays list
 function resetSearch() {
-  $('.list-group-item').each((index, element) => {
+  $('.group-list-item').each((index, element) => {
     $(element).show();
   });
-  $('input').val('')
+  $('input').val('');
 }
 
 const searchBar = document.querySelector('#search-button');
 
+//search and hide non-hits
 $('form').on('submit', function (e) {
   e.preventDefault();
   //get search value
@@ -210,8 +220,7 @@ $('form').on('submit', function (e) {
     return;
   }
 
-  //search and hide non-hits
-  $('.list-group-item').each((index, element) => {
+  $('.group-list-item').each((index, element) => {
     $(element).show();
     if ($(element).text().toLowerCase().indexOf(searchVal) > -1) {
       console.log($(element).text());
