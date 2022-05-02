@@ -52,7 +52,8 @@ let pokemonRepository = (function () {
         .addClass('group-list-item col-lg-4 col-sm-12 col-md-6')
         .append(
           $('<button></button>')
-            .append(document.createTextNode(pokemon.name)).addClass('btn btn-light')
+            .append(document.createTextNode(pokemon.name))
+            .addClass('btn btn-light')
             .attr('data-toggle', 'modal')
             .attr('data-target', '#pokeModal')
         )
@@ -89,7 +90,7 @@ let pokemonRepository = (function () {
         item.height = details.height;
         item.weight = details.weight;
         item.types = details.types;
-        item.sprites = details.sprites
+        item.sprites = details.sprites;
       })
       .catch(function (e) {
         console.error(e);
@@ -164,12 +165,12 @@ $('#pokeModal').on('show.bs.modal', (event) => {
 
     //setting pokemon image url trying official and home then defaulting
     let spriteURL;
-    if (pokemon.sprites.other['official-artwork'].front_default){
-      spriteURL = pokemon.sprites.other['official-artwork'].front_default
+    if (pokemon.sprites.other['official-artwork'].front_default) {
+      spriteURL = pokemon.sprites.other['official-artwork'].front_default;
     } else if (pokemon.sprites.other.home.front_default) {
-      spriteURL = pokemon.sprites.other.home.front_default
+      spriteURL = pokemon.sprites.other.home.front_default;
     } else {
-      spriteURL = pokemon.imageUrl
+      spriteURL = pokemon.imageUrl;
     }
 
     $('.modal-body')
@@ -208,18 +209,14 @@ function resetSearch() {
 
 const searchBar = document.querySelector('#search-button');
 
-//search and hide non-hits
-$('form').on('submit', function (e) {
-  e.preventDefault();
-  //get search value
-  const searchVal = $('input').val().toLowerCase();
 
+//search for typed values and hide non-hits via the search button
+$('.input-box').keyup(function (e) {
+  const searchVal = $('input').val().toLowerCase();
   if (searchVal === '') {
-    alert('Must Enter a Value to Search');
     resetSearch();
     return;
   }
-
   $('.group-list-item').each((index, element) => {
     $(element).show();
     if ($(element).text().toLowerCase().indexOf(searchVal) > -1) {
@@ -228,6 +225,27 @@ $('form').on('submit', function (e) {
     }
   });
 });
+
+
+// $('form').on('submit', function (e) {
+//   e.preventDefault();
+//   //get search value
+//   const searchVal = $('input').val().toLowerCase();
+
+//   if (searchVal === '') {
+//     alert('Must Enter a Value to Search');
+//     resetSearch();
+//     return;
+//   }
+
+//   $('.group-list-item').each((index, element) => {
+//     $(element).show();
+//     if ($(element).text().toLowerCase().indexOf(searchVal) > -1) {
+//     } else {
+//       $(element).hide();
+//     }
+//   });
+// });
 
 $('.clear-search').click(() => {
   resetSearch();
